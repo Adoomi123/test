@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TokTrak | Stats</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark">
+  <header class="header-container">
+    <div class="logo-container">
+      <img src="logo.svg" alt="TokTrak Logo" class="logo-img" />
+      <h1 class="logo">TokTrak</h1>
+    </div>
+    <button class="mode-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
+  </header>
+
+  <main class="stats-page">
+    <p class="tagline">@<span id="user-handle"></span></p>
+
+    <div class="profile-card">
+      <img id="profile-pic" src="" alt="Profile Picture" />
+      <h2 id="display-name"></h2>
+      <p id="bio"></p>
+    </div>
+
+    <div class="bubbles">
+      <div class="bubble">
+        <strong>Followers</strong>
+        <span id="followers"></span>
+      </div>
+      <div class="bubble">
+        <strong>Following</strong>
+        <span id="following"></span>
+      </div>
+      <div class="bubble">
+        <strong>Likes</strong>
+        <span id="likes"></span>
+      </div>
+      <div class="bubble">
+        <strong>Comments</strong>
+        <span id="comments"></span>
+      </div>
+      <div class="bubble">
+        <strong>Views</strong>
+        <span id="views"></span>
+      </div>
+    </div>
+
+    <section class="chart-section" style="height: 300px; margin-top: 30px;">
+      <h3>Followers Growth (Last 7 Days)</h3>
+      <canvas id="followersChart"></canvas>
+    </section>
+
+    <div class="advanced-link" style="margin-top: 20px;">
+      <a href="advanced.html" class="btn-link">See Advanced Stats & Growth</a>
+    </div>
+
+    <section class="socials" style="margin-top: 40px;">
+      <h3>Connect with Us</h3>
+      <div class="social-links">
+        <a href="https://www.tiktok.com/@techwithadam_official" target="_blank" class="btn-link">Follow on TikTok</a>
+        <a href="https://discord.gg/yourdiscordlink" target="_blank" class="btn-link discord">Join Discord</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" style="margin-top: 50px;">
+    <p>© 2025 TokTrak. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Theme toggle (reused from script.js if needed)
+    function toggleTheme() {
+      const body = document.body;
+      body.classList.toggle("dark");
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    }
+
+    window.addEventListener("load", () => {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.remove("dark");
+      }
+    });
+
+    // Display TikTok stats & chart
+    document.addEventListener("DOMContentLoaded", () => {
+      const data = JSON.parse(localStorage.getItem("tiktokStats"));
+      if (!data) {
+        alert("No TikTok stats found. Please search again.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      // Fill profile info
+      document.getElementById("user-handle").textContent = data.uniqueId || "N/A";
+      document.getElementById("profile-pic").src = data.avatarLarger || "";
+      document.getElementById("display-name").textContent = data.nickname || "N/A";
+      document.getElementById("bio").textContent = data.signature || "";
+
+      // Format numbers
+      function formatNum(num) {
+        return num ? num.toLocaleString() : "N/A";
+      }
+
+      document.getElementById("followers").textContent = formatNum(data.stats.followerCount);
+      document.getElementById("following").textContent = formatNum(data.stats.followingCount);
+      document.getElementById("likes").textContent = formatNum(data.stats.heartCount);
+      document.getElementById("comments").textContent = formatNum(data.stats.diggCount || 0);
+      document.getElementById("views").textContent = formatNum(data.stats.playCount);
+
+      // Followers growth chart (mock data - replace with real data later)
+      const ctx = document.getElementById("followersChart").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["6 days ago", "5 days ago", "4 days ago", "3 days ago", "2 days ago", "Yesterday", "Today"],
+          datasets: [{
+            label: "Followers",
+            data: [1000, 1020, 1050, 1100, 1200, 1300, data.stats.followerCount],
+            borderColor: "rgba(29,161,242,1)",
+            backgroundColor: "rgba(29,161,242,0.2)",
+            fill: true,
+            tension: 0.3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          },
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

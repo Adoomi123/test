@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TokTrak | Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+</head>
+<body class="dark">
+  <header class="header-container">
+    <div class="logo-container">
+      <img src="logo.svg" alt="TokTrak Logo" class="logo-img" />
+      <h1 class="logo">TokTrak</h1>
+    </div>
+    <button class="mode-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
+  </header>
+
+  <main class="center-box">
+    <section class="intro">
+      <h2>Track TikTok Stats Fast & Easy</h2>
+      <p>Enter a TikTok username to get detailed stats and insights instantly.</p>
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter TikTok username"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button onclick="goToStats()">Check Stats</button>
+    </section>
+
+    <section class="socials">
+      <h3>Connect with Me</h3>
+      <div class="social-links">
+        <a href="https://www.tiktok.com/@techwithadam_official" target="_blank" rel="noopener" class="btn-link">Follow on TikTok</a>
+        <a href="https://discord.gg/yourdiscordlink" target="_blank" rel="noopener" class="btn-link discord">Join Discord</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 TechWithAdam_Official. Made by Adam (<a href="https://www.tiktok.com/@techwithadam_official" target="_blank" rel="noopener" style="color:#ff2d55;">techwithadam_official</a>)</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
