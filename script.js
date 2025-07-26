@@ -21,7 +21,7 @@ async function goToStats() {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/stats", {
+    const response = await fetch("https://49e5e1ae-3263-4a04-9641-0e8cfd6459df-00-1npjnd7tdbnc8.sisko.replit.dev/api/stats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
